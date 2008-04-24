@@ -10,7 +10,7 @@ sub new {
     $args ||= {};
     my $requirements = delete($args->{requirements}) || {};
 
-    my $self = bless { args => $args, requirements => $requirements };
+    my $self = bless { args => $args, requirements => $requirements }, $class;
 
     $self->compile($pattern);
     $self;
