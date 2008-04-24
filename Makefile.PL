@@ -5,7 +5,6 @@ all_from 'lib/HTTPx/Dispatcher.pm';
 requires 'Class::Data::Inheritable';
 requires 'Class::Accessor::Fast';
 requires 'HTTP::Request';
-requires 'HTTP::Engine';
 
 build_requires 'Test::More';
 build_requires 'YAML';
