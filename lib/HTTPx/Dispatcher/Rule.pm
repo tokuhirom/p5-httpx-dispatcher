@@ -16,6 +16,8 @@ sub new {
     $self;
 }
 
+# compile url pattern to regex.
+#   articles/:year/:month => qr{articles/(.+)/(.+)}
 sub compile {
     my ($self, $pattern) = @_;
 
@@ -31,8 +33,6 @@ sub compile {
 
 sub match {
     my ($self, $uri) = @_;
-
-    # articles/:year/:month => qr{articles/(.+)/(.+)}
 
     if ($uri =~ $self->re) {
         my @last_match_start = @-; # backup perlre vars
