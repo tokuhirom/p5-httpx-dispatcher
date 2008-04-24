@@ -94,3 +94,13 @@ controller: blog
 month: 10
 year: 2003
 
+===
+--- input
+src: |+
+    connect ':controller/:action-:id'
+uri: /user/edit-3
+--- expected
+action: edit
+controller: user
+id: 3
+
