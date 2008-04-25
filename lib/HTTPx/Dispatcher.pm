@@ -7,25 +7,18 @@ use Class::Data::Inheritable;
 use HTTPx::Dispatcher::Rule;
 use Scalar::Util qw/blessed/;
 use Carp;
+use base qw/Exporter/;
 
-sub import {
-    my $pkg = caller(0);
-    no strict 'refs';
-    unshift @{"$pkg\::ISA"}, 'Class::Data::Inheritable';
-    $pkg->mk_classdata( '__rules' => [] );
+our @EXPORT = qw/connect match uri_for/;
 
-    foreach my $export qw(connect match uri_for) {
-        *{"$pkg\::$export"} = \&{$export};
-    }
-}
+my $rules;
 
 sub connect
 {
     my $pkg = caller(0);
     my @args = @_;
-    my $rules = $pkg->__rules;
-    push @$rules, HTTPx::Dispatcher::Rule->new(@args);
-    $pkg->__rules( $rules );
+
+    push @{ $rules->{$pkg} } , HTTPx::Dispatcher::Rule->new(@args);
 }
 
 sub match
@@ -33,7 +26,7 @@ sub match
     my ($class, $req) = @_;
     croak "request required" unless blessed $req;
 
-    for my $rule (@{ $class->__rules }) {
+    for my $rule (@{ $rules->{$class} }) {
         if (my $result = $rule->match($req)) {
             return $result;
         }
@@ -45,7 +38,7 @@ sub uri_for
 {
     my ($class, @args) = @_;
 
-    for my $rule ( @{ $class->__rules } ) {
+    for my $rule ( @{ $rules->{$class} } ) {
         if (my $result = $rule->uri_for( @args ) ) {
             return $result;
         }
