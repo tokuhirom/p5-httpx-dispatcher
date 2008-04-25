@@ -1,4 +1,9 @@
 Revision history for Perl extension HTTPx::Dispatcher
 
+0.02
+
+    - fixed deps.
+    - added new feature: Dispatcher->uri_for({ 'controller' => 'Foo', 'action' => 'bar' })
+
 0.01    Thu Apr 24 20:38:18 2008
         - original version

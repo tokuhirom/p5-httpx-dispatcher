@@ -2,7 +2,7 @@ package HTTPx::Dispatcher;
 use strict;
 use warnings;
 use 5.00800;
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 use HTTPx::Dispatcher::Rule;
 use Scalar::Util qw/blessed/;
 use Carp;
@@ -82,6 +82,10 @@ HTTPx::Dispatcher is URI Dispatcher.
 =head1 AUTHOR
 
 Tokuhiro Matsuno E<lt>tokuhirom@gmail.comE<gt>
+
+=head1 THANKS TO
+
+lestrrat
 
 =head1 SEE ALSO
 
