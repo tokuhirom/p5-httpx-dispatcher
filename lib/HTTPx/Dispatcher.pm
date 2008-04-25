@@ -33,6 +33,16 @@ sub import {
         }
         return; # no match.
     };
+
+    *{"$pkg\::uri_for"} = sub {
+        my ($class, @args) = @_;
+
+        for my $rule ( @{ $pkg->__rules } ) {
+            if (my $result = $rule->uri_for( @args ) ) {
+                return $result;
+            }
+        }
+    };
 }
 
 1;

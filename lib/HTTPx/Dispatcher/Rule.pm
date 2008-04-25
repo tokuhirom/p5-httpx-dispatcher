@@ -5,7 +5,7 @@ use base qw/Class::Accessor::Fast/;
 use Scalar::Util qw/blessed/;
 use Carp;
 
-__PACKAGE__->mk_accessors(qw/re controller action capture requirements conditions/);
+__PACKAGE__->mk_accessors(qw/re pattern controller action capture requirements conditions name/);
 
 sub new {
     my ($class, $pattern, $args) = @_;
@@ -22,6 +22,8 @@ sub new {
 #   articles/:year/:month => qr{articles/(.+)/(.+)}
 sub compile {
     my ($self, $pattern) = @_;
+
+    $self->pattern( $pattern );
 
     # emulate named capture
     my @capture;
@@ -105,6 +107,18 @@ sub condition_check_function {
         return 1;
     } else {
         return 0;
+    }
+}
+
+sub uri_for {
+    my ($self, $args) = @_;
+
+    if (join(' ', sort keys %$args) eq join(' ', sort @{ $self->capture }) ) {
+        my $uri = $self->pattern;
+        $uri =~ s{:([a-z0-9A-Z]+)}{
+            $args->{ $1 }
+        }ge;
+        "/$uri";
     }
 }
 
