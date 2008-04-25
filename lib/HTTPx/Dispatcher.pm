@@ -48,7 +48,7 @@ sub import {
 1;
 __END__
 
-=for stopwords TODO
+=for stopwords TODO URI uri
 
 =encoding utf8
 
@@ -82,12 +82,6 @@ HTTPx::Dispatcher - the uri dispatcher
 =head1 DESCRIPTION
 
 HTTPx::Dispatcher is URI Dispatcher.
-
-=head1 TODO
-
-    - dispatch by HTTP::Request.
-    - uri_for
-    - m.connect(':controller/:(action)-:(id)')
 
 =head1 AUTHOR
 
