@@ -73,11 +73,12 @@ sub match {
 sub condition_check {
     my ($self, $req) = @_;
 
-    $self->condition_check_method($req);
+    $self->condition_check_method($req) && $self->condition_check_function($req);
 }
 
 sub condition_check_method {
     my ($self, $req) = @_;
+    croak "request required" unless blessed $req;
 
     my $method = $self->conditions->{method};
     return 1 unless $method;
@@ -85,6 +86,21 @@ sub condition_check_method {
     $method = [ $method ] unless ref $method;
 
     if (grep { uc $req->method eq uc $_} @$method) {
+        return 1;
+    } else {
+        return 0;
+    }
+}
+
+sub condition_check_function {
+    my ($self, $req) = @_;
+    croak "request required" unless blessed $req;
+
+    my $function = $self->conditions->{function};
+    return 1 unless $function;
+
+    local $_ = $req;
+    if ( $function->( $req ) ) {
         return 1;
     } else {
         return 0;

@@ -152,3 +152,49 @@ method: POST
 action: post_root
 controller: user
 
+=== function condition(1)
+--- input
+src: |+
+    connect 'edit' => {
+        conditions => {
+            function => sub { $_->method =~ /get/i },
+        },
+        controller => 'user',
+        action => 'get_root',
+    };
+    connect 'edit' => {
+        conditions => {
+            function => sub { $_->method =~ /post/i },
+        },
+        controller => 'user',
+        action => 'post_root',
+    };
+uri: /edit
+method: POST
+--- expected
+action: post_root
+controller: user
+
+=== function condition(2)
+--- input
+src: |+
+    connect 'edit' => {
+        conditions => {
+            function => sub { $_->method =~ /get/i },
+        },
+        controller => 'user',
+        action => 'get_root',
+    };
+    connect 'edit' => {
+        conditions => {
+            function => sub { $_->method =~ /post/i },
+        },
+        controller => 'user',
+        action => 'post_root',
+    };
+uri: /edit
+method: GET
+--- expected
+action: get_root
+controller: user
+
