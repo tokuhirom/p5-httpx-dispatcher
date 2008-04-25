@@ -44,7 +44,7 @@ __END__
 
 =head1 NAME
 
-HTTPx::Dispatcher - the dispatcher
+HTTPx::Dispatcher - the uri dispatcher
 
 =head1 SYNOPSIS
 
@@ -71,14 +71,12 @@ HTTPx::Dispatcher - the dispatcher
 
 =head1 DESCRIPTION
 
-HTTPx::Dispatcher is Router.
+HTTPx::Dispatcher is URI Dispatcher.
 
 =head1 TODO
 
     - dispatch by HTTP::Request.
     - uri_for
-    - conditions => { method => [qw/POST GET/] }
-    - conditions => { function => sub { ok? } }
     - m.connect(':controller/:(action)-:(id)')
 
 =head1 AUTHOR

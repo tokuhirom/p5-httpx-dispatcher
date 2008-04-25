@@ -38,6 +38,7 @@ sub match {
     croak "request required" unless blessed $req;
     my $uri = $req->uri;
     $uri =~ s!^/+!!;
+    $uri =~ s!\?.+!!;
 
     return unless $self->condition_check( $req );
 

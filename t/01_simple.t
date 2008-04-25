@@ -198,3 +198,16 @@ method: GET
 action: get_root
 controller: user
 
+=== with query
+--- input
+src: |+
+    connect 'articles/:year/:month' => {
+        controller => 'blog',
+        action     => 'view',
+    };
+uri: /articles/2003/10?query=foo
+--- expected
+action: view
+controller: blog
+month: 10
+year: 2003
