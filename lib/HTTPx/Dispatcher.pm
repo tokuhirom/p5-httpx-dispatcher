@@ -7,7 +7,7 @@ use Class::Data::Inheritable;
 use HTTPx::Dispatcher::Rule;
 use Scalar::Util qw/blessed/;
 use Carp;
-use base qw/Exporter/;
+use Exporter 'import';
 
 our @EXPORT = qw/connect match uri_for/;
 
