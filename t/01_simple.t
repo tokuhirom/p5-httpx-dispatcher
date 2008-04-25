@@ -3,6 +3,7 @@ use warnings;
 use Test::Base;
 use YAML;
 use HTTPx::Dispatcher;
+use HTTP::Request;
 
 plan tests => 1*blocks;
 
@@ -23,7 +24,8 @@ sub _proc {
     $input->{src};
 ...
 
-    my $res = $pkg->match($input->{uri});
+    my $method = $input->{method} || 'GET';
+    my $res = $pkg->match(HTTP::Request->new($method, $input->{uri}));
     $res = ((not defined $res) ? 'undef' : YAML::Dump($res));
     $res =~ s/^---\n//;
     $res;
@@ -103,4 +105,50 @@ uri: /user/edit-3
 action: edit
 controller: user
 id: 3
+
+===
+--- input
+src: |+
+    connect 'edit' => {
+        conditions => {
+            method => 'GET',
+        },
+        controller => 'user',
+        action => 'get_root',
+    };
+    connect 'edit' => {
+        conditions => {
+            method => 'POST',
+        },
+        controller => 'user',
+        action => 'post_root',
+    };
+uri: /edit
+method: GET
+--- expected
+action: get_root
+controller: user
+
+===
+--- input
+src: |+
+    connect 'edit' => {
+        conditions => {
+            method => 'GET',
+        },
+        controller => 'user',
+        action => 'get_root',
+    };
+    connect 'edit' => {
+        conditions => {
+            method => 'POST',
+        },
+        controller => 'user',
+        action => 'post_root',
+    };
+uri: /edit
+method: POST
+--- expected
+action: post_root
+controller: user
 

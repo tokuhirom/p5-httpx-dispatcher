@@ -5,6 +5,8 @@ use 5.00800;
 our $VERSION = '0.01';
 use Class::Data::Inheritable;
 use HTTPx::Dispatcher::Rule;
+use Scalar::Util qw/blessed/;
+use Carp;
 
 sub import {
     my $pkg = caller(0);
@@ -21,11 +23,11 @@ sub import {
     };
 
     *{"$pkg\::match"} = sub {
-        my ($class, $uri) = @_;
+        my ($class, $req) = @_;
+        croak "request required" unless blessed $req;
 
-        $uri =~ s!^/+!!;
         for my $rule (@{ $pkg->__rules }) {
-            if (my $result = $rule->match($uri)) {
+            if (my $result = $rule->match($req)) {
                 return $result;
             }
         }
@@ -42,7 +44,7 @@ __END__
 
 =head1 NAME
 
-HTTPx::Dispatcher -
+HTTPx::Dispatcher - the dispatcher
 
 =head1 SYNOPSIS
 
@@ -84,6 +86,8 @@ HTTPx::Dispatcher is Router.
 Tokuhiro Matsuno E<lt>tokuhirom@gmail.comE<gt>
 
 =head1 SEE ALSO
+
+L<HTTP::Engine>, L<Routes>
 
 =head1 LICENSE
 
