@@ -42,7 +42,7 @@ sub match {
     $uri =~ s!^/+!!;
     $uri =~ s!\?.+!!;
 
-    return unless $self->condition_check( $req );
+    return unless $self->_condition_check( $req );
 
     if ($uri =~ $self->re) {
         my @last_match_start = @-; # backup perlre vars
@@ -83,13 +83,13 @@ sub _filter_response {
     return $output;
 }
 
-sub condition_check {
+sub _condition_check {
     my ($self, $req) = @_;
 
-    $self->condition_check_method($req) && $self->condition_check_function($req);
+    $self->_condition_check_method($req) && $self->_condition_check_function($req);
 }
 
-sub condition_check_method {
+sub _condition_check_method {
     my ($self, $req) = @_;
     croak "request required" unless blessed $req;
 
@@ -105,7 +105,7 @@ sub condition_check_method {
     }
 }
 
-sub condition_check_function {
+sub _condition_check_function {
     my ($self, $req) = @_;
     croak "request required" unless blessed $req;
 
