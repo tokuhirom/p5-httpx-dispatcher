@@ -123,12 +123,23 @@ sub _condition_check_function {
 sub uri_for {
     my ($self, $args) = @_;
 
-    if (join(' ', sort keys %$args) eq join(' ', sort @{ $self->capture }) ) {
-        my $uri = $self->pattern;
-        $uri =~ s{:([a-z0-9A-Z]+)}{
-            $args->{ $1 }
-        }ge;
-        "/$uri";
+    my $uri = $self->pattern;
+    my %args = %$args;
+    while (my ($key, $val) = each %args) {
+         $uri = $self->_uri_for_match($uri, $key, $val) or return;
+    }
+    return "/$uri";
+}
+
+sub _uri_for_match {
+    my ($self, $uri, $key, $val) = @_;
+
+    if ($self->{$key} && $self->{$key} eq $val) { return $uri }
+
+    if ($uri =~ s{:$key}{$val}) {
+        return $uri;
+    } else {
+        return;
     }
 }
 
