@@ -3,46 +3,53 @@ use strict;
 use warnings;
 use 5.00800;
 our $VERSION = '0.01';
+use Exporter (); 
 use Class::Data::Inheritable;
 use HTTPx::Dispatcher::Rule;
 use Scalar::Util qw/blessed/;
 use Carp;
 
+our @EXPORT = qw(connect match uri_for);
+
 sub import {
     my $pkg = caller(0);
-
     no strict 'refs';
     unshift @{"$pkg\::ISA"}, 'Class::Data::Inheritable';
     $pkg->mk_classdata( '__rules' => [] );
+    goto &Exporter::import; # black magic goto
+}
 
-    *{"$pkg\::connect"} = sub {
-        my @args = @_;
-        my $rules = $pkg->__rules;
-        push @$rules, HTTPx::Dispatcher::Rule->new(@args);
-        $pkg->__rules( $rules );
-    };
+sub connect
+{
+    my $pkg = caller(0);
+    my @args = @_;
+    my $rules = $pkg->__rules;
+    push @$rules, HTTPx::Dispatcher::Rule->new(@args);
+    $pkg->__rules( $rules );
+}
 
-    *{"$pkg\::match"} = sub {
-        my ($class, $req) = @_;
-        croak "request required" unless blessed $req;
+sub match
+{
+    my ($class, $req) = @_;
+    croak "request required" unless blessed $req;
 
-        for my $rule (@{ $pkg->__rules }) {
-            if (my $result = $rule->match($req)) {
-                return $result;
-            }
+    for my $rule (@{ $class->__rules }) {
+        if (my $result = $rule->match($req)) {
+            return $result;
         }
-        return; # no match.
-    };
+    }
+    return; # no match.
+}
 
-    *{"$pkg\::uri_for"} = sub {
-        my ($class, @args) = @_;
+sub uri_for
+{
+    my ($class, @args) = @_;
 
-        for my $rule ( @{ $pkg->__rules } ) {
-            if (my $result = $rule->uri_for( @args ) ) {
-                return $result;
-            }
+    for my $rule ( @{ $class->__rules } ) {
+        if (my $result = $rule->uri_for( @args ) ) {
+            return $result;
         }
-    };
+    }
 }
 
 1;
