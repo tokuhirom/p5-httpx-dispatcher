@@ -3,20 +3,20 @@ use strict;
 use warnings;
 use 5.00800;
 our $VERSION = '0.01';
-use Exporter (); 
 use Class::Data::Inheritable;
 use HTTPx::Dispatcher::Rule;
 use Scalar::Util qw/blessed/;
 use Carp;
-
-our @EXPORT = qw(connect match uri_for);
 
 sub import {
     my $pkg = caller(0);
     no strict 'refs';
     unshift @{"$pkg\::ISA"}, 'Class::Data::Inheritable';
     $pkg->mk_classdata( '__rules' => [] );
-    goto &Exporter::import; # black magic goto
+
+    foreach my $export qw(connect match uri_for) {
+        *{"$pkg\::$export"} = \&{$export};
+    }
 }
 
 sub connect
