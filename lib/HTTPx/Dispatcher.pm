@@ -3,7 +3,6 @@ use strict;
 use warnings;
 use 5.00800;
 our $VERSION = '0.01';
-use Class::Data::Inheritable;
 use HTTPx::Dispatcher::Rule;
 use Scalar::Util qw/blessed/;
 use Carp;
