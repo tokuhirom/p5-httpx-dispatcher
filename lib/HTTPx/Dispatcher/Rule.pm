@@ -67,10 +67,20 @@ sub match {
 
             $cnt++;
         }
-        return $response;
+        return $self->_filter_response( $response );
     } else {
         return;
     }
+}
+
+sub _filter_response {
+    my ($self, $input) = @_;
+    my $output = {};
+    for my $key (qw/controller action/) {
+        $output->{$key} = delete $input->{$key} or croak "missing $key";
+    }
+    $output->{args} = $input;
+    return $output;
 }
 
 sub condition_check {

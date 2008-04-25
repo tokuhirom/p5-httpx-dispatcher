@@ -50,9 +50,10 @@ src: |+
 uri: /articles/2003/10
 --- expected
 action: view
+args:
+  month: 10
+  year: 2003
 controller: blog
-month: 10
-year: 2003
 
 ===
 --- input
@@ -64,9 +65,10 @@ src: |+
 uri: /articles/2003/10
 --- expected
 action: view
+args:
+  month: 10
+  year: 2003
 controller: blog
-month: 10
-year: 2003
 
 ===
 --- input
@@ -75,8 +77,9 @@ src: |+
 uri: /user/edit/2
 --- expected
 action: edit
+args:
+  id: 2
 controller: user
-id: 2
 
 ===
 --- input
@@ -92,9 +95,10 @@ src: |+
 uri: /articles/2003/10
 --- expected
 action: view
+args:
+  month: 10
+  year: 2003
 controller: blog
-month: 10
-year: 2003
 
 ===
 --- input
@@ -103,8 +107,9 @@ src: |+
 uri: /user/edit-3
 --- expected
 action: edit
+args:
+  id: 3
 controller: user
-id: 3
 
 ===
 --- input
@@ -127,6 +132,7 @@ uri: /edit
 method: GET
 --- expected
 action: get_root
+args: {}
 controller: user
 
 ===
@@ -150,6 +156,7 @@ uri: /edit
 method: POST
 --- expected
 action: post_root
+args: {}
 controller: user
 
 === function condition(1)
@@ -173,6 +180,7 @@ uri: /edit
 method: POST
 --- expected
 action: post_root
+args: {}
 controller: user
 
 === function condition(2)
@@ -196,6 +204,7 @@ uri: /edit
 method: GET
 --- expected
 action: get_root
+args: {}
 controller: user
 
 === with query
@@ -208,6 +217,7 @@ src: |+
 uri: /articles/2003/10?query=foo
 --- expected
 action: view
+args:
+  month: 10
+  year: 2003
 controller: blog
-month: 10
-year: 2003
