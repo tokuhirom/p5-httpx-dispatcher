@@ -38,9 +38,9 @@ sub compile {
 sub match {
     my ($self, $req) = @_;
     croak "request required" unless blessed $req;
-    my $uri = $req->uri;
+
+    my $uri = ref($req->uri) ? $req->uri->path : $req->uri;
     $uri =~ s!^/+!!;
-    $uri =~ s!\?.+!!;
 
     return unless $self->_condition_check( $req );
 

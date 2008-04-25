@@ -25,20 +25,22 @@ sub _proc {
 ...
 
     my $method = $input->{method} || 'GET';
-    my $res = $pkg->match(HTTP::Request->new($method, $input->{uri}));
+    my $res = $pkg->match(HTTP::Request->new($method, "http://example.com/$input->{uri}"));
     $res = ((not defined $res) ? 'undef' : YAML::Dump($res));
     $res =~ s/^---\n//;
     $res;
 }
 
-
 __END__
 
 ===
 --- input
-src: ''
+src: connect '', { controller => 'Root', action => 'index' }
 uri: /
---- expected: undef
+--- expected
+action: index
+args: {}
+controller: Root
 
 ===
 --- input
