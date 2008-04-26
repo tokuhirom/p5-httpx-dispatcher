@@ -8,6 +8,7 @@ requires 'HTTP::Request'            => 1.40;
 
 build_requires 'Test::More';
 build_requires 'YAML';
+build_requires 'Test::MockObject';
 use_test_base;
 auto_include;
 WriteAll;
