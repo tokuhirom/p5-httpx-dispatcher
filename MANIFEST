@@ -14,6 +14,7 @@ inc/Test/Base.pm
 inc/Test/Base/Filter.pm
 inc/Test/Builder.pm
 inc/Test/Builder/Module.pm
+inc/Test/MockObject.pm
 inc/Test/More.pm
 inc/YAML.pm
 lib/HTTPx/Dispatcher.pm
