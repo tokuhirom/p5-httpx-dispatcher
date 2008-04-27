@@ -59,3 +59,9 @@ connect 'content/:id' => { controller => 'Content', action => 'show'  };
 --- uri_for:  { controller => 'Content', action => 'show', 'id' => 3 }
 --- expected:   /content/3
 
+===
+--- dispatcher
+connect '' => { controller => 'Root', action => 'index'  };
+--- uri_for:  { controller => 'Root', action => 'index' }
+--- expected:   /
+

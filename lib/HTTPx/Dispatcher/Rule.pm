@@ -126,7 +126,8 @@ sub uri_for {
     my $uri = $self->pattern;
     my %args = %$args;
     while (my ($key, $val) = each %args) {
-         $uri = $self->_uri_for_match($uri, $key, $val) or return;
+         $uri = $self->_uri_for_match($uri, $key, $val);
+         return unless defined $uri;
     }
     return "/$uri";
 }
