@@ -1,5 +1,9 @@
 Revision history for Perl extension HTTPx::Dispatcher
 
+0.05
+
+    - added deps: URI
+
 0.04
 
     - no feature changes.
