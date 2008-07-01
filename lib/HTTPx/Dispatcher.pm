@@ -68,7 +68,7 @@ HTTPx::Dispatcher - the uri dispatcher
         'config.yaml',
         handle_request => sub {
             my $c = shift;
-            my $rule = Your::Dispatcher->match($c->req->uri);
+            my $rule = Your::Dispatcher->match($c->req);
             $rule->{controller}->use or die 'hoge';
             my $action = $rule->{action};
             $rule->{controller}->$action( $c->req );
