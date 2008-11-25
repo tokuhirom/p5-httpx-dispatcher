@@ -23,6 +23,12 @@ sub new {
 sub compile {
     my ($self, $pattern) = @_;
 
+    # from URI Templates to url pattern
+    #   articles/{year}/{month} => articles/:year/:month
+    $pattern =~ s/{(\w+)}/:$1/g;
+    # allow slash (eg. '/articles')
+    $pattern =~ s!^/+!!;
+
     $self->pattern( $pattern );
 
     # emulate named capture
