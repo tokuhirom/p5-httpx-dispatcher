@@ -2,7 +2,7 @@ use strict;
 use warnings;
 use Test::Base;
 use YAML;
-use HTTPx::Dispatcher;
+use HTTPx::Dispatcher::Declare;
 use HTTP::Request;
 use Test::MockObject;
 
@@ -44,7 +44,7 @@ sub _proc {
     my $pkg = "t::Dispatcher::" . ++$cnt;
     eval <<"...";
     package $pkg;
-    use HTTPx::Dispatcher;
+    use HTTPx::Dispatcher::Declare;
     $input;
 ...
 
