@@ -10,6 +10,7 @@ requires 'URI'                      => 1.36;
 build_requires 'Test::More';
 build_requires 'YAML';
 build_requires 'Test::MockObject';
+auto_set_repository;
 use_test_base;
 auto_include;
 WriteAll;
