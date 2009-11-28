@@ -231,3 +231,14 @@ args:
   month: 10
   year: 2003
 controller: blog
+
+===
+--- dispatcher
+connect 'static/:thing', { controller => 'Root', action => 'index' }
+--- uri: /static/some/thing
+--- expected
+action: index
+args:
+  thing: some/thing
+controller: Root
+
