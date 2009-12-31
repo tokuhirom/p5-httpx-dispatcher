@@ -17,6 +17,7 @@ inc/Test/Base/Filter.pm
 inc/Test/Builder.pm
 inc/Test/Builder/Module.pm
 inc/Test/More.pm
+inc/Test/Requires.pm
 inc/YAML.pm
 lib/HTTPx/Dispatcher.pm
 lib/HTTPx/Dispatcher/Rule.pm
@@ -29,6 +30,7 @@ t/01_simple.t
 t/02_uri_for.t
 t/03_templates.t
 t/04_uri_for_templates.t
+t/05_plack.t
 t/MockAPREQ.pm
 xt/97_podspell.t
 xt/98_perlcritic.t
