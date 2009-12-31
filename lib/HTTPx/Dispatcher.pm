@@ -6,7 +6,7 @@ our $VERSION = '0.06';
 use HTTPx::Dispatcher::Rule;
 use Scalar::Util qw/blessed/;
 use Carp;
-use Exporter 'import';
+use base qw/Exporter/;
 
 our @EXPORT = qw/connect match uri_for/;
 
