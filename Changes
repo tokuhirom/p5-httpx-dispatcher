@@ -1,5 +1,12 @@
 Revision history for Perl extension HTTPx::Dispatcher
 
+0.06
+
+    - integrate with Plack
+    - fixed test
+    - support URI Templates(by masaki++)
+    - support head slash(by masaki++)
+
 0.05
 
     - added deps: URI
