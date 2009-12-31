@@ -2,7 +2,8 @@ use strict;
 use warnings;
 use Test::Base;
 use YAML;
-use HTTPx::Dispatcher::Declare;
+use HTTPx::Dispatcher;
+use HTTPx::Dispatcher::Rule;
 use HTTP::Request;
 
 plan tests => 1*blocks;
@@ -26,7 +27,7 @@ sub _eval {
 
     eval <<"...";
     package $pkg;
-    use HTTPx::Dispatcher::Declare;
+    use HTTPx::Dispatcher;
     $input;
 ...
 

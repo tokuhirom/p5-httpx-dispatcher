@@ -2,29 +2,28 @@ package HTTPx::Dispatcher;
 use strict;
 use warnings;
 use 5.00800;
-use base qw/Class::Accessor::Fast/;
 our $VERSION = '0.05';
 use HTTPx::Dispatcher::Rule;
 use Scalar::Util qw/blessed/;
 use Carp;
+use Exporter 'import';
 
-__PACKAGE__->mk_accessors(qw/rules/);
+our @EXPORT = qw/connect match uri_for/;
 
-sub new {
-    my $class = shift;
-    return $class->SUPER::new({ rules => [] });
-}
+my $rules;
 
-sub add_rule {
-    my ( $self, @args ) = @_;
-    push @{ $self->rules }, HTTPx::Dispatcher::Rule->new(@args);
+sub connect {
+    my $pkg  = caller(0);
+    my @args = @_;
+
+    push @{ $rules->{$pkg} }, HTTPx::Dispatcher::Rule->new(@args);
 }
 
 sub match {
-    my ( $self, $req ) = @_;
+    my ( $class, $req ) = @_;
     croak "request required" unless blessed $req;
 
-    for my $rule ( @{ $self->rules } ) {
+    for my $rule ( @{ $rules->{$class} } ) {
         if ( my $result = $rule->match($req) ) {
             return $result;
         }
@@ -33,9 +32,9 @@ sub match {
 }
 
 sub uri_for {
-    my ( $self, @args ) = @_;
+    my ( $class, @args ) = @_;
 
-    for my $rule ( @{ $self->rules } ) {
+    for my $rule ( @{ $rules->{$class} } ) {
         if ( my $result = $rule->uri_for(@args) ) {
             return $result;
         }
@@ -55,19 +54,21 @@ HTTPx::Dispatcher - the uri dispatcher
 
 =head1 SYNOPSIS
 
+    package Your::Dispatcher;
     use HTTPx::Dispatcher;
+
+    connect ':controller/:action/:id';
+
+    package Your::Handler;
     use HTTP::Engine;
+    use Your::Dispatcher;
     use UNIVERSAL::require;
-
-    my $dispatcher = HTTPx::Dispatcher->new;
-
-    $dispatcher->add_rule(':controller/:action/:id');
 
     HTTP::Engine->new(
         'config.yaml',
         handle_request => sub {
             my $c = shift;
-            my $rule = $dispatcher->match($c->req);
+            my $rule = Your::Dispatcher->match($c->req);
             $rule->{controller}->use or die 'hoge';
             my $action = $rule->{action};
             $rule->{controller}->$action( $c->req );
@@ -88,9 +89,7 @@ lestrrat
 
 =head1 SEE ALSO
 
-L<HTTP::Engine>,
-L<http://api.rubyonrails.org/classes/ActionController/Routing.html>,
-L<http://api.rubyonrails.org/classes/ActionController/Routing/RouteSet/Mapper.html>
+L<HTTP::Engine>, L<Routes>
 
 =head1 LICENSE
 

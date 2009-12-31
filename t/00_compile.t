@@ -1,8 +1,4 @@
 use strict;
-use Test::More tests => 3;
+use Test::More tests => 1;
 
-BEGIN {
-    use_ok 'HTTPx::Dispatcher';
-    use_ok 'HTTPx::Dispatcher::Rule';
-    use_ok 'HTTPx::Dispatcher::Declare';
-}
+BEGIN { use_ok 'HTTPx::Dispatcher' }
