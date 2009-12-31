@@ -7,9 +7,8 @@ requires 'Exporter'                 => 5.58;
 requires 'HTTP::Request'            => 1.40;
 requires 'URI'                      => 1.36;
 
-build_requires 'Test::More';
-build_requires 'YAML';
-build_requires 'Test::MockObject';
+test_requires 'Test::More';
+test_requires 'YAML';
 auto_set_repository;
 use_test_base;
 auto_include;

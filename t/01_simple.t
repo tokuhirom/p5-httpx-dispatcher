@@ -4,7 +4,7 @@ use Test::Base;
 use YAML;
 use HTTPx::Dispatcher::Declare;
 use HTTP::Request;
-use Test::MockObject;
+use t::MockAPREQ;
 
 plan tests => 2*blocks;
 
@@ -28,7 +28,7 @@ sub _apache_req {
     my $block = shift;
     my $method = $block->method || 'GET';
     (my $uri = $block->uri) =~ s/\?.+//;
-    Test::MockObject->new({})->set_always('uri' => $uri)->set_always( method => $method);
+    t::MockAPREQ->new(uri => $uri, method => $method);
 }
 
 sub _http_req {
