@@ -1,11 +1,13 @@
 Changes
 inc/Module/Install.pm
+inc/Module/Install/AuthorTests.pm
 inc/Module/Install/Base.pm
 inc/Module/Install/Can.pm
 inc/Module/Install/Fetch.pm
 inc/Module/Install/Include.pm
 inc/Module/Install/Makefile.pm
 inc/Module/Install/Metadata.pm
+inc/Module/Install/Repository.pm
 inc/Module/Install/TestBase.pm
 inc/Module/Install/Win32.pm
 inc/Module/Install/WriteAll.pm
@@ -14,7 +16,6 @@ inc/Test/Base.pm
 inc/Test/Base/Filter.pm
 inc/Test/Builder.pm
 inc/Test/Builder/Module.pm
-inc/Test/MockObject.pm
 inc/Test/More.pm
 inc/YAML.pm
 lib/HTTPx/Dispatcher.pm
@@ -28,3 +29,8 @@ t/01_simple.t
 t/02_uri_for.t
 t/03_templates.t
 t/04_uri_for_templates.t
+t/MockAPREQ.pm
+xt/97_podspell.t
+xt/98_perlcritic.t
+xt/99_pod.t
+xt/perlcriticrc
