@@ -59,25 +59,24 @@ HTTPx::Dispatcher - the uri dispatcher
 
     connect ':controller/:action/:id';
 
-    package Your::Handler;
-    use HTTP::Engine;
+    # in your *.psgi file
+    use Plack::Request;
     use Your::Dispatcher;
     use UNIVERSAL::require;
 
-    HTTP::Engine->new(
-        'config.yaml',
-        handle_request => sub {
-            my $c = shift;
-            my $rule = Your::Dispatcher->match($c->req);
-            $rule->{controller}->use or die 'hoge';
-            my $action = $rule->{action};
-            $rule->{controller}->$action( $c->req );
-        }
-    );
+    sub {
+        my $req = Plack::Request->new($_[0]);
+        my $rule = Your::Dispatcher->match($c->req);
+        $rule->{controller}->use or die 'hoge';
+        my $action = $rule->{action};
+        $rule->{controller}->$action( $c->req );
+    };
 
 =head1 DESCRIPTION
 
 HTTPx::Dispatcher is URI Dispatcher.
+
+Easy to integrate with Plack::Request, HTTP::Engine, HTTP::Request, Apache::Request, etc.
 
 =head1 AUTHOR
 
@@ -87,9 +86,11 @@ Tokuhiro Matsuno E<lt>tokuhirom@gmail.comE<gt>
 
 lestrrat
 
+masaki
+
 =head1 SEE ALSO
 
-L<HTTP::Engine>, L<Routes>
+L<Plack::Request>, L<HTTP::Engine>, L<Routes>
 
 =head1 LICENSE
 
