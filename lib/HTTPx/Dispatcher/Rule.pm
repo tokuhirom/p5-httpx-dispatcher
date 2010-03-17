@@ -43,7 +43,6 @@ sub compile {
 
 sub match {
     my ($self, $req) = @_;
-    croak "request required" unless blessed $req;
 
     my $uri = ref($req->uri) ? $req->uri->path : $req->uri;
     $uri =~ s!^/+!!;
@@ -97,7 +96,6 @@ sub _condition_check {
 
 sub _condition_check_method {
     my ($self, $req) = @_;
-    croak "request required" unless blessed $req;
 
     my $method = $self->conditions->{method};
     return 1 unless $method;
@@ -113,7 +111,6 @@ sub _condition_check_method {
 
 sub _condition_check_function {
     my ($self, $req) = @_;
-    croak "request required" unless blessed $req;
 
     my $function = $self->conditions->{function};
     return 1 unless $function;
