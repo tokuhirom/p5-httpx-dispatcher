@@ -2,7 +2,7 @@ package HTTPx::Dispatcher;
 use strict;
 use warnings;
 use 5.00800;
-our $VERSION = '0.07';
+our $VERSION = '0.08';
 use HTTPx::Dispatcher::Rule;
 use Scalar::Util qw/blessed/;
 use Carp;
@@ -21,7 +21,6 @@ sub connect {
 
 sub match {
     my ( $class, $req ) = @_;
-    croak "request required" unless blessed $req;
 
     for my $rule ( @{ $rules->{$class} } ) {
         if ( my $result = $rule->match($req) ) {
@@ -50,7 +49,7 @@ __END__
 
 =head1 NAME
 
-HTTPx::Dispatcher - the uri dispatcher
+HTTPx::Dispatcher - the uri dispatcher(DEPRECATED)
 
 =head1 SYNOPSIS
 
@@ -74,9 +73,7 @@ HTTPx::Dispatcher - the uri dispatcher
 
 =head1 DESCRIPTION
 
-HTTPx::Dispatcher is URI Dispatcher.
-
-Easy to integrate with Plack::Request, HTTP::Engine, HTTP::Request, Apache::Request, etc.
+THIS MODULE WAS NO LONGER MAINTAIN. USE L<Router::Simple> INSTEAD.
 
 =head1 AUTHOR
 

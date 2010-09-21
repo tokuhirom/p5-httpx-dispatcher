@@ -49,7 +49,7 @@ sub match {
 
     return unless $self->_condition_check( $req );
 
-    if ($uri =~ $self->re) {
+    if ($uri =~ $self->{re}) {
         my @last_match_start = @-; # backup perlre vars
         my @last_match_end   = @+;
 
