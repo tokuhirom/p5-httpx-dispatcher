@@ -11,9 +11,7 @@ tests 't/*.t t/*/*.t';
 recursive_author_tests 'xt';
 
 test_requires 'Test::More';
-test_requires 'YAML';
 test_requires 'Test::Requires';
+test_requires 'Test::Base';
 auto_set_repository;
-use_test_base;
-auto_include;
 WriteAll;
