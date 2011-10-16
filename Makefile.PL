@@ -10,6 +10,7 @@ requires 'URI'                      => 1.36;
 tests 't/*.t t/*/*.t';
 recursive_author_tests 'xt';
 
+test_requires 'YAML';
 test_requires 'Test::More';
 test_requires 'Test::Requires';
 test_requires 'Test::Base';

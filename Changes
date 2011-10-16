@@ -1,5 +1,9 @@
 Revision history for Perl extension HTTPx::Dispatcher
 
+0.10
+
+    - fixed test deps
+
 0.09
 
     - modernized packaging

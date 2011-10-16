@@ -2,7 +2,7 @@ package HTTPx::Dispatcher;
 use strict;
 use warnings;
 use 5.00800;
-our $VERSION = '0.09';
+our $VERSION = '0.10';
 use HTTPx::Dispatcher::Rule;
 use Scalar::Util qw/blessed/;
 use Carp;
