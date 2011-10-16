@@ -5,3 +5,4 @@ MYMETA.*
 HTTPx-Dispatcher-*/
 blib/
 pm_to_blib
+MANIFEST.bak

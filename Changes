@@ -1,5 +1,9 @@
 Revision history for Perl extension HTTPx::Dispatcher
 
+0.09
+
+    - modernized packaging
+
 0.08
 
     - DEPRECATED.
